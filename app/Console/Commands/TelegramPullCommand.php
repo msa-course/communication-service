@@ -15,7 +15,7 @@ class TelegramPullCommand extends Command
         $logger = logger()->channel('telegram');
         $lastUpdateId = 0; # todo: Получаем последний update_id
 
-        $updates = Telegram::bot()->getUpdates([$lastUpdateId + 1]);
+        $updates = Telegram::bot()->getUpdates(['offset' => $lastUpdateId + 1]);
 
         foreach ($updates as $update) {
             $message = $update->getMessage();
