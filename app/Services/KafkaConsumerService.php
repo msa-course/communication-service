@@ -24,6 +24,11 @@ class KafkaConsumerService
         // Enable auto commit (optional)
         $conf->set('enable.auto.commit', 'false');
 
+        $conf->set('security.protocol', 'SASL_PLAINTEXT');
+        $conf->set('sasl.mechanisms', 'PLAIN');
+        $conf->set('sasl.username', env('KAFKA_USERNAME', 'client'));
+        $conf->set('sasl.password', env('KAFKA_PASSWORD', 'secret'));
+
         // Set error callback
         $conf->setErrorCb(function ($kafka, $err, $reason) {
             Log::error("Kafka error: " . rd_kafka_err2str($err) . " (reason: $reason)");
